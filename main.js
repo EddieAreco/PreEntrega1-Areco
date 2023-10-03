@@ -1,8 +1,9 @@
-// Inicializo el stock de productos por fuera de la funcion, si fuera dentro, el stock siempre empezaria desde 10
+// Inicializo el stock de productos por fuera de la funcion, si fuera dentro, el stock siempre empezaria desde 10 y también el total de compra para después poder dar un valor de compra total cuando se haga mas de 1 compra
 
 let stockFernet = 10;
 let stockCoca = 10;
 let stockHeineken = 10;
+let totalCompra = 0;
 
 function compra() {
 
@@ -10,6 +11,7 @@ function compra() {
     
     let descuento = 0.3;
     let recargaCredito = 0.2;
+    let salir = false; //Defino la variable salir como false, va a actuar como variable de control para finalizar el bucle
 
     // Utilizo un bucle for para permitir al usuario realizar o simular hasta 30 compras.
 
@@ -89,6 +91,8 @@ function compra() {
             let precioFinal = precio * cantidadComprada;
             alert(`El precio final a pagar es: $${precioFinal} pesos`);
 
+            totalCompra += precioFinal;
+
             // Actualizamos el stock del producto seleccionado.
 
             switch (producto) {
@@ -112,17 +116,19 @@ function compra() {
 
         // Procedo a preguntar al cliente si quiere hacer otra compra
 
-        let preguntaRecompra = prompt("Quieres realizar otra compra?").toLowerCase();
-    
-        if ( preguntaRecompra === "no" ){
-            alert("Gracias por su compra!! :D");
-            break; //Si no quiere comprar, terminamos la operacion
-        } else if ( preguntaRecompra === "si" ){
-            compra(); //Si quiere recomprar, volvemos a la funcion desde el inicio
-        } else {
+        let preguntaRecompra = prompt("¿Quieres realizar otra compra? (si/no)").toLowerCase();
+
+        if (preguntaRecompra === "no") {
+            salir = true; // Defino la variable de control como true para salir del bucle y finalizar la compra
+            break;
+        } else if (preguntaRecompra !== "si") {
             alert("Ingresó una opción no válida");
-            continue;
+            continue; //Si se coloca una respuesta distinta a si o no, se vuelve al inicio de la funcion compra()
         }
+    }
+
+    if (salir) {
+        alert(`Gracias por su compra!! :D, el total a pagar es: $${totalCompra} pesos`); //Al darse la variable salir como true, ya le muestro al cliente el total que debe pagar, y asi terminamos el proceso
     }
 
 }
