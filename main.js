@@ -1,10 +1,13 @@
+// Inicializo el stock de productos por fuera de la funcion, si fuera dentro, el stock siempre empezaria desde 10
+
+let stockFernet = 10;
+let stockCoca = 10;
+let stockHeineken = 10;
 
 function compra() {
 
-    // Inicializo el stock de productos y otros valores.
-    let stockFernet = 10;
-    let stockCoca = 10;
-    let stockHeineken = 10;
+    // Inicializo otros valores que se van a usar en los métodos de pago.
+    
     let descuento = 0.3;
     let recargaCredito = 0.2;
 
@@ -88,16 +91,6 @@ function compra() {
 
             // Actualizamos el stock del producto seleccionado.
 
-            // if (producto === "fernet") {
-            //     stockFernet -= cantidadComprada;
-            // } else if (producto === "coca") {
-            //     stockCoca -= cantidadComprada;
-            // } else if (producto === "cerveza heineken") {
-            //     stockHeineken -= cantidadComprada;
-            // } else {
-
-            // }
-
             switch (producto) {
                 case "fernet":
                     stockFernet -= cantidadComprada; //Resto el stock
@@ -116,9 +109,22 @@ function compra() {
         alert(`El stock que queda de fernet es: ${stockFernet}`);
         alert(`El stock que queda de coca es: ${stockCoca}`);
         alert(`El stock que queda de cerveza heineken es: ${stockHeineken}`);
+
+        // Procedo a preguntar al cliente si quiere hacer otra compra
+
+        let preguntaRecompra = prompt("Quieres realizar otra compra?").toLowerCase();
+    
+        if ( preguntaRecompra === "no" ){
+            alert("Gracias por su compra!! :D");
+            break; //Si no quiere comprar, terminamos la operacion
+        } else if ( preguntaRecompra === "si" ){
+            compra(); //Si quiere recomprar, volvemos a la funcion desde el inicio
+        } else {
+            alert("Ingresó una opción no válida");
+            continue;
+        }
     }
 
-    alert("Gracias por su compra!! :D");
 }
 
 compra();
